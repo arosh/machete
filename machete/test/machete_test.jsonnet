@@ -44,4 +44,16 @@ local machete = import '../machete.libsonnet';
 
     assert std.assertEqual(want, got),
   },
+  takeWhile: {
+    local arr = [1, 2, 3, 4, 2, 0, -2],
+    assert std.assertEqual([1, 2, 3], machete.takeWhile(function(x) x <= 3, arr)),
+    assert std.assertEqual([], machete.takeWhile(function(x) x <= 0, arr)),
+    assert std.assertEqual([1, 2, 3, 4, 2, 0, -2], machete.takeWhile(function(x) x <= 4, arr)),
+  },
+  dropWhile: {
+    local arr = [1, 2, 3, 4, 2, 0, -2],
+    assert std.assertEqual([4, 2, 0, -2], machete.dropWhile(function(x) x <= 3, arr)),
+    assert std.assertEqual([], machete.dropWhile(function(x) x <= 4, arr)),
+    assert std.assertEqual([1, 2, 3, 4, 2, 0, -2], machete.dropWhile(function(x) x <= 0, arr)),
+  },
 }
