@@ -56,4 +56,11 @@ local machete = import '../machete.libsonnet';
     assert std.assertEqual([], machete.dropWhile(function(x) x <= 4, arr)),
     assert std.assertEqual([1, 2, 3, 4, 2, 0, -2], machete.dropWhile(function(x) x <= 0, arr)),
   },
+  hashObject: {
+    local one = { foo: 1, bar: [2, 3] },
+    local two = { bar: [2, 3], foo: 1 },
+    local three = { foo: 1, bar: [2, 4] },
+    assert machete.hashObject(one) == machete.hashObject(two),
+    assert machete.hashObject(one) != machete.hashObject(three),
+  },
 }
