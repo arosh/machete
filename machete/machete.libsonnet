@@ -28,43 +28,6 @@
   
   
   // Backport until go-jsonnet 0.18.0 is released.
-  // https://github.com/google/jsonnet/blob/2ac965472e9b7229d4ffca4c546025ac88a01add/stdlib/std.jsonnet#L1005-L1042
-  manifestJsonMinified(value):: self.manifestJsonEx(value, '', '', ':'),
-
-  manifestJsonEx(value, indent, newline='\n', key_val_sep=': ')::
-    local aux(v, path, cindent) =
-      if v == true then
-        'true'
-      else if v == false then
-        'false'
-      else if v == null then
-        'null'
-      else if std.isNumber(v) then
-        '' + v
-      else if std.isString(v) then
-        std.escapeStringJson(v)
-      else if std.isFunction(v) then
-        error 'Tried to manifest function at ' + path
-      else if std.isArray(v) then
-        local range = std.range(0, std.length(v) - 1);
-        local new_indent = cindent + indent;
-        local lines = ['[' + newline]
-                      + std.join([',' + newline],
-                                 [
-                                   [new_indent + aux(v[i], path + [i], new_indent)]
-                                   for i in range
-                                 ])
-                      + [newline + cindent + ']'];
-        std.join('', lines)
-      else if std.isObject(v) then
-        local lines = ['{' + newline]
-                      + std.join([',' + newline],
-                                 [
-                                   [cindent + indent + std.escapeStringJson(k) + key_val_sep
-                                    + aux(v[k], path + [k], cindent + indent)]
-                                   for k in std.objectFields(v)
-                                 ])
-                      + [newline + cindent + '}'];
-        std.join('', lines);
-    aux(value, [], ''),
+  // https://github.com/google/jsonnet/blob/2ac965472e9b7229d4ffca4c546025ac88a01add/stdlib/std.jsonnet#L1005
+  manifestJsonMinified(value):: std.manifestJson(value),
 }
