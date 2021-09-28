@@ -1,0 +1,24 @@
+name: Run test
+on: push
+
+jobs:
+  run-test:
+    name: Run test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Install go-jsonnet
+        run: |
+          # https://github.com/argoproj/argo-cd/blob/917d0797fa5594f654c8cd1f8e3192f03feea794/go.mod#L35
+          go install github.com/google/go-jsonnet/cmd/jsonnet@v0.17.0
+
+      - name: Run test
+        run: |
+          jsonnet machete/test/*.jsonnet
