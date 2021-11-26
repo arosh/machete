@@ -18,6 +18,9 @@
     local begin = std.foldl(function(x, y) if x == y - 1 && func(arr[y]) then y else x, std.range(0, length - 1), -1) + 1;
     arr[begin:],
 
+  flattenArraysRecurse(arr)::
+    std.flatMap(function(x) if std.isArray(x) then self.flattenArraysRecurse(x) else [x], arr),
+
   hashObject(obj)::
     local marshal = self.manifestJsonMinified(obj);
     local digest = std.md5(marshal);
@@ -25,8 +28,7 @@
     local rule = { '0': 'g', '1': 'h', '3': 'k', a: 'm', e: 't' };
     local replacer(c) = if std.objectHas(rule, c) then rule[c] else c;
     std.join('', [replacer(c) for c in std.stringChars(digest[:10])]),
-  
-  
+
   // Backport until go-jsonnet 0.18.0 is released.
   // https://github.com/google/jsonnet/blob/2ac965472e9b7229d4ffca4c546025ac88a01add/stdlib/std.jsonnet#L1005
   manifestJsonMinified(value):: std.manifestJson(value),
