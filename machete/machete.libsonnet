@@ -18,8 +18,8 @@
     local begin = std.foldl(function(x, y) if x == y - 1 && func(arr[y]) then y else x, std.range(0, length - 1), -1) + 1;
     arr[begin:],
 
-  flattenArraysRecurse(arr)::
-    std.flatMap(function(x) if std.isArray(x) then self.flattenArraysRecurse(x) else [x], arr),
+  deepFlattenArrays(arr)::
+    std.flatMap(function(x) if std.isArray(x) then self.deepFlattenArrays(x) else [x], arr),
 
   hashObject(obj)::
     local marshal = self.manifestJsonMinified(obj);

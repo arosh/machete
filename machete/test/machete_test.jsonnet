@@ -56,11 +56,11 @@ local machete = import '../machete.libsonnet';
     assert std.assertEqual([], machete.dropWhile(function(x) x <= 4, arr)),
     assert std.assertEqual([1, 2, 3, 4, 2, 0, -2], machete.dropWhile(function(x) x <= 0, arr)),
   },
-  flattenArraysRecurse: {
-    assert std.assertEqual([1, 2, 3], machete.flattenArraysRecurse([1, 2, 3])),
-    assert std.assertEqual([1, 2, 3], machete.flattenArraysRecurse([[1, 2], 3])),
-    assert std.assertEqual([1, 2, 3], machete.flattenArraysRecurse([[[1], 2], [3]])),
-    assert std.assertEqual([1, 2, 3], machete.flattenArraysRecurse([1, 2, [], 3])),
+  deepFlattenArrays: {
+    assert std.assertEqual([1, 2, 3], machete.deepFlattenArrays([1, 2, 3])),
+    assert std.assertEqual([1, 2, 3], machete.deepFlattenArrays([[1, 2], 3])),
+    assert std.assertEqual([1, 2, 3], machete.deepFlattenArrays([[[1], 2], [3]])),
+    assert std.assertEqual([1, 2, 3], machete.deepFlattenArrays([1, 2, [], 3])),
   },
   hashObject: {
     local one = { foo: 1, bar: [2, 3] },
