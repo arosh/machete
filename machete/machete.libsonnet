@@ -32,4 +32,10 @@
   // Backport until go-jsonnet 0.18.0 is released.
   // https://github.com/google/jsonnet/blob/2ac965472e9b7229d4ffca4c546025ac88a01add/stdlib/std.jsonnet#L1005
   manifestJsonMinified(value):: std.manifestJson(value),
+
+  // generate integer from 0 to m-1 based on string s
+  hashModulo(s, m)::
+    local h = std.md5(s);
+    local xs = [std.parseHex(c) for c in std.stringChars(h)];
+    std.foldl(function(x, y) (x * 16 + y) % m, xs, 0)
 }

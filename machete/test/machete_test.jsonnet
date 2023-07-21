@@ -69,4 +69,11 @@ local machete = import '../machete.libsonnet';
     assert machete.hashObject(one) == machete.hashObject(two),
     assert machete.hashObject(one) != machete.hashObject(three),
   },
+  hashModulo: {
+    // hash = ec5287c45f0e70ec22d52e8bcbeeb640
+    assert machete.hashModulo('abracadabra', 11) == 3,
+
+    // hash = 04142dfe3304fd05c525bdde0b7d21d4
+    assert machete.hashModulo('mississippi', 19) == 18,
+  },
 }
