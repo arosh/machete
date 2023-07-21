@@ -37,5 +37,5 @@
   hashModulo(s, m)::
     local h = std.md5(s);
     local xs = [std.parseHex(c) for c in std.stringChars(h)];
-    std.foldl(function(x, y) (x * 16 + y) % m, xs, 0)
+    std.foldl(function(x, y) (x * 16 + y) % m, xs, 0),
 }
