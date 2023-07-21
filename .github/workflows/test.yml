@@ -7,17 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4
         with:
-          go-version: 1.17
+          go-version: '1.20'
 
       - name: Install go-jsonnet
         run: |
-          # https://github.com/argoproj/argo-cd/blob/917d0797fa5594f654c8cd1f8e3192f03feea794/go.mod#L35
-          go install github.com/google/go-jsonnet/cmd/jsonnet@v0.17.0
+          # https://github.com/argoproj/argo-cd/blob/v2.6.8/go.mod#L40
+          go install github.com/google/go-jsonnet/cmd/jsonnet@v0.19.1
 
       - name: Run test
         run: |
